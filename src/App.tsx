@@ -25,7 +25,7 @@ const App: React.FC = () => {
         data => setPatient(data)
       );
     }
-  }, []);
+  }, [patientMatch, patient]);
 
 
   return (
