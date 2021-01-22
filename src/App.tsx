@@ -5,7 +5,7 @@ import { Button, Container, Divider, Header } from 'semantic-ui-react';
 import PatientDetailPage from './PatientDetailPage';
 import PatientListPage from './PatientListPage';
 import { patientService } from './services';
-import { useStateValue } from './state';
+import { setPatientList, useStateValue } from './state';
 import { Patient } from './types';
 
 const App: React.FC = () => {
@@ -14,9 +14,7 @@ const App: React.FC = () => {
   const [patient, setPatient] = React.useState<Patient | null | undefined>(null);
 
   React.useEffect(() => {
-    patientService.fetchAll().then(data =>
-      dispatch({ type: "SET_PATIENT_LIST", payload: data })
-    );
+    setPatientList(dispatch);
   }, [dispatch]);
 
   React.useEffect(() => {

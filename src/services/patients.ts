@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { PatientFormValues } from '../AddPatientModal/AddPatientForm';
 import { apiBaseUrl } from '../constants';
 import { Patient } from '../types';
 
@@ -18,8 +19,15 @@ const fetchById = async (id: string) => {
   return request.data;
 };
 
+const create = async (newObject: PatientFormValues) => {
+  const response = await axios.post<Patient>(`${apiBaseUrl}/patients`, newObject);
+  return response.data;
+};
+
+
 export default {
   ping,
+  create,
   fetchAll,
   fetchById
 };

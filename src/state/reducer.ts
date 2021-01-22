@@ -1,15 +1,19 @@
-import { State } from "./state";
-import { Patient } from "../types";
+import { Dispatch } from 'react';
+
+import { PatientFormValues } from '../AddPatientModal/AddPatientForm';
+import { patientService } from '../services';
+import { Patient } from '../types';
+import { State } from './state';
 
 export type Action =
   | {
-      type: "SET_PATIENT_LIST";
-      payload: Patient[];
-    }
+    type: "SET_PATIENT_LIST";
+    payload: Patient[];
+  }
   | {
-      type: "ADD_PATIENT";
-      payload: Patient;
-    };
+    type: "ADD_PATIENT";
+    payload: Patient;
+  };
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -36,3 +40,17 @@ export const reducer = (state: State, action: Action): State => {
       return state;
   }
 };
+
+
+const setPatientList = async (dispatch: Dispatch<Action>) => {
+  const data = await patientService.fetchAll();
+  dispatch({ type: "SET_PATIENT_LIST", payload: data });
+};
+
+const createNewPatient = async (dispatch: Dispatch<Action>, newObject: PatientFormValues) => {
+  const data = await patientService.create(newObject);
+  dispatch({ type: "ADD_PATIENT", payload: data });
+};
+
+
+export { setPatientList, createNewPatient };
