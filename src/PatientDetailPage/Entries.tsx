@@ -11,7 +11,6 @@ const EntryDetail: React.FC<{ entry: Entry | null }> = ({ entry }) => {
 
   return (
     <div>
-      <Header as="h4">{entry.id}</Header>
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -42,9 +41,7 @@ const EntryDetail: React.FC<{ entry: Entry | null }> = ({ entry }) => {
 
 
 const Entries: React.FC<{ entries: Entry[] | null }> = ({ entries }) => {
-  if (!entries) {
-    return null;
-  } else if (entries.length === 0) {
+  if (!entries || entries.length === 0) {
     return null;
   }
 
