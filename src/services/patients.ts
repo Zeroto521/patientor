@@ -13,7 +13,6 @@ const fetchAll = async () => {
   return request.data;
 };
 
-
 const fetchById = async (id: string) => {
   const request = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
   return request.data;
@@ -23,7 +22,6 @@ const create = async (newObject: PatientFormValues) => {
   const response = await axios.post<Patient>(`${apiBaseUrl}/patients`, newObject);
   return response.data;
 };
-
 
 export default {
   ping,
