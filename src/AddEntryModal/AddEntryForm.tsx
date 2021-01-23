@@ -2,51 +2,41 @@ import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { Button, Grid } from 'semantic-ui-react';
 
-import { GenderOption, SelectField, TextField } from '../Modal';
-import { Gender, Patient } from '../types';
+import { TextField } from '../Modal';
+import { BaseEntry as Entry } from '../types';
 
 /*
  * use type Patient, but omit id and entries,
  * because those are irrelevant for new patient object.
  */
-export type PatientFormValues = Omit<Patient, "id" | "entries">;
+export type EntryFormValues = Omit<Entry, "id">;
 
 interface Props {
-  onSubmit: (values: PatientFormValues) => void;
+  onSubmit: (values: EntryFormValues) => void;
   onCancel: () => void;
 }
 
-const genderOptions: GenderOption[] = [
-  { value: Gender.Male, label: "Male" },
-  { value: Gender.Female, label: "Female" },
-  { value: Gender.Other, label: "Other" }
-];
 
-export const AddPatientForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
+export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
   return (
     <Formik
       initialValues={{
-        name: "",
-        ssn: "",
-        dateOfBirth: "",
-        occupation: "",
-        gender: Gender.Other
+        description: "",
+        date: "",
+        specialist: ""
       }}
       onSubmit={onSubmit}
       validate={values => {
         const requiredError = "Field is required";
         const errors: { [field: string]: string } = {};
-        if (!values.name) {
-          errors.name = requiredError;
+        if (!values.description) {
+          errors.description = requiredError;
         }
-        if (!values.ssn) {
-          errors.ssn = requiredError;
+        if (!values.date) {
+          errors.date = requiredError;
         }
-        if (!values.dateOfBirth) {
-          errors.dateOfBirth = requiredError;
-        }
-        if (!values.occupation) {
-          errors.occupation = requiredError;
+        if (!values.specialist) {
+          errors.specialist = requiredError;
         }
         return errors;
       }}
@@ -55,33 +45,22 @@ export const AddPatientForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
         return (
           <Form className="form ui">
             <Field
-              label="Name"
-              placeholder="Name"
-              name="name"
+              label="description"
+              placeholder="Description"
+              name="description"
               component={TextField}
             />
             <Field
-              label="Social Security Number"
-              placeholder="SSN"
-              name="ssn"
-              component={TextField}
-            />
-            <Field
-              label="Date Of Birth"
+              label="date"
               placeholder="YYYY-MM-DD"
-              name="dateOfBirth"
+              name="date"
               component={TextField}
             />
             <Field
-              label="Occupation"
-              placeholder="Occupation"
-              name="occupation"
+              label="specialist"
+              placeholder="Specialist"
+              name="specialist"
               component={TextField}
-            />
-            <SelectField
-              label="Gender"
-              name="gender"
-              options={genderOptions}
             />
             <Grid>
               <Grid.Column floated="left" width={5}>
@@ -107,4 +86,4 @@ export const AddPatientForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
   );
 };
 
-export default AddPatientForm;
+export default AddEntryForm;

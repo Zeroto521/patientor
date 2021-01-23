@@ -1,7 +1,7 @@
 import React from 'react';
-import { Header, Table } from 'semantic-ui-react';
+import { Divider, Header, Table } from 'semantic-ui-react';
 
-import { Entry } from '../types';
+import { BaseEntry as Entry } from '../types';
 import Diagnosis from './Diagnosis';
 
 const EntryDetail: React.FC<{ entry: Entry | null }> = ({ entry }) => {
@@ -34,6 +34,7 @@ const EntryDetail: React.FC<{ entry: Entry | null }> = ({ entry }) => {
           <Diagnosis diagnosis={entry.diagnosisCodes} />
         </Table.Body>
       </Table>
+      <Divider hidden />
     </div>
   );
 };
